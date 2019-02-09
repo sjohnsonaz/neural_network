@@ -34,6 +34,25 @@ export default class Matrix {
         }
     }
 
+    store(array: number[][]) {
+        let lengthX = array.length;
+        let lengthY = array[0].length;
+        this.lengthX = lengthX;
+        this.lengthY = lengthY;
+        this.value = new Array(lengthX);
+
+        for (let x = 0; x < lengthX; x++) {
+            if (array[x]) {
+                this.value[x] = Array.from(array[x]);
+                if (this.value[x].length !== lengthY) {
+                    this.value[x].length = lengthY;
+                }
+            } else {
+                this.value[x] = new Array(lengthY);
+            }
+        }
+    }
+
     static create(array: number[][]) {
         return new Matrix(array.length, array[0].length, array);
     }
@@ -136,6 +155,14 @@ export default class Matrix {
         result.value[i] = a.value[j];
         result.value[j] = row;
         return result;
+    }
+
+    static rref(a: Matrix, result?: Matrix) {
+        if (!result) {
+            result = Matrix.create(a.value);
+        } else {
+            result.store(a.value);
+        }
     }
 }
 

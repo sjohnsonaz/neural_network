@@ -76,14 +76,34 @@ export default class Matrix {
         return result;
     }
 
-    static mult(a: number, b: Matrix, result?: Matrix) {
+    static mult(a: Matrix, b: number, result?: Matrix) {
         if (!result) {
-            result = new Matrix(b.lengthX, b.lengthY);
+            result = new Matrix(a.lengthX, a.lengthY);
         }
-        for (let i = 0, lengthX = b.lengthX; i < lengthX; i++) {
-            for (let j = 0, lengthY = b.lengthY; j < lengthY; j++) {
-                result.value[i][j] = a * b.value[i][j];
+        for (let i = 0, lengthX = a.lengthX; i < lengthX; i++) {
+            for (let j = 0, lengthY = a.lengthY; j < lengthY; j++) {
+                result.value[i][j] = b * a.value[i][j];
             }
+        }
+        return result;
+    }
+
+    static multRow(a: Matrix, b: number, i: number, result?: Matrix) {
+        if (!result) {
+            result = new Matrix(a.lengthX, a.lengthY);
+        }
+        for (let j = 0, lengthY = a.lengthY; j < lengthY; j++) {
+            result.value[i][j] = b * a.value[i][j];
+        }
+        return result;
+    }
+
+    static multCol(a: Matrix, b: number, j: number, result?: Matrix) {
+        if (!result) {
+            result = new Matrix(a.lengthX, a.lengthY);
+        }
+        for (let i = 0, lengthX = a.lengthX; i < lengthX; i++) {
+            result.value[i][j] = b * a.value[i][j];
         }
         return result;
     }

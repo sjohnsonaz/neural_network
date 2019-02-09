@@ -90,7 +90,7 @@ export default class Matrix {
 
     static multRow(a: Matrix, b: number, i: number, result?: Matrix) {
         if (!result) {
-            result = new Matrix(a.lengthX, a.lengthY);
+            result = Matrix.create(a.value);
         }
         for (let j = 0, lengthY = a.lengthY; j < lengthY; j++) {
             result.value[i][j] = b * a.value[i][j];
@@ -100,7 +100,7 @@ export default class Matrix {
 
     static multCol(a: Matrix, b: number, j: number, result?: Matrix) {
         if (!result) {
-            result = new Matrix(a.lengthX, a.lengthY);
+            result = Matrix.create(a.value);
         }
         for (let i = 0, lengthX = a.lengthX; i < lengthX; i++) {
             result.value[i][j] = b * a.value[i][j];
@@ -125,6 +125,16 @@ export default class Matrix {
                 result.value[i][j] = value;
             }
         }
+        return result;
+    }
+
+    static swapRow(a: Matrix, i: number, j: number, result?: Matrix) {
+        if (!result) {
+            result = Matrix.create(a.value);
+        }
+        let row = a.value[i];
+        result.value[i] = a.value[j];
+        result.value[j] = row;
         return result;
     }
 }

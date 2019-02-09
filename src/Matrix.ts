@@ -53,6 +53,33 @@ export default class Matrix {
         return result;
     }
 
+    static sub(a: Matrix, b: Matrix, result?: Matrix) {
+        if (a.lengthX !== b.lengthX || a.lengthY !== b.lengthY) {
+            throw new Error(MatrixError.dimensionMismatch);
+        }
+        if (!result) {
+            result = new Matrix(a.lengthX, a.lengthY);
+        }
+        for (let x = 0, lengthX = a.lengthX; x < lengthX; x++) {
+            for (let y = 0, lengthY = a.lengthY; y < lengthY; y++) {
+                result.value[x][y] = a.value[x][y] - b.value[x][y];
+            }
+        }
+        return result;
+    }
+
+    static mult(a: number, b: Matrix, result?: Matrix) {
+        if (!result) {
+            result = new Matrix(b.lengthX, b.lengthY);
+        }
+        for (let i = 0, lengthX = b.lengthX; i < lengthX; i++) {
+            for (let j = 0, lengthY = b.lengthY; j < lengthY; j++) {
+                result.value[i][j] = a * b.value[i][j];
+            }
+        }
+        return result;
+    }
+
     static dot(a: Matrix, b: Matrix, result?: Matrix) {
         if (a.lengthY !== b.lengthX) {
             throw new Error(MatrixError.dimensionMismatch);

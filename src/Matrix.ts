@@ -39,7 +39,7 @@ export default class Matrix {
     }
 
     static identity(size: number) {
-        let matrix = new Matrix(size, size);
+        let matrix = new Matrix(size, size, 0);
         for (let x = 0; x < size; x++) {
             matrix.value[x][x] = 1;
         }

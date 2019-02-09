@@ -38,6 +38,14 @@ export default class Matrix {
         return new Matrix(array.length, array[0].length, array);
     }
 
+    static identity(size: number) {
+        let matrix = new Matrix(size, size);
+        for (let x = 0; x < size; x++) {
+            matrix.value[x][x] = 1;
+        }
+        return matrix;
+    }
+
     static add(a: Matrix, b: Matrix, result?: Matrix) {
         if (a.lengthX !== b.lengthX || a.lengthY !== b.lengthY) {
             throw new Error(MatrixError.dimensionMismatch);
